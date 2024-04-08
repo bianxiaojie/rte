@@ -20,10 +20,7 @@ type defaultBehaviorRepository struct {
 }
 
 func MakeDefaultBehaviorRepository() BehaviorRepository {
-	br := &defaultBehaviorRepository{}
-	br.behaviorMap = make(map[reflect.Type][]Behavior)
-	br.behaviorParser = MakeDefaultBehaviorParser()
-	return br
+	return MakeDefaultBehaviorRepositoryWithBehaviorParser(MakeDefaultBehaviorParser())
 }
 
 func MakeDefaultBehaviorRepositoryWithBehaviorParser(bp BehaviorParser) BehaviorRepository {
