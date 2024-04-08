@@ -14,10 +14,10 @@ type BehaviorParser interface {
 type defaultBehaviorParser struct{}
 
 func MakeDefaultBehaviorParser() BehaviorParser {
-	return defaultBehaviorParser{}
+	return &defaultBehaviorParser{}
 }
 
-func (bp defaultBehaviorParser) ParseBehavior(method reflect.Method) (Behavior, bool) {
+func (bp *defaultBehaviorParser) ParseBehavior(method reflect.Method) (Behavior, bool) {
 	// behavior method name must be like F_1
 	groups, ok := str.MatchAndFindGroups(`^([a-zA-Z0-9]+)_(\d+)$`, method.Name)
 	if !ok {
@@ -27,11 +27,11 @@ func (bp defaultBehaviorParser) ParseBehavior(method reflect.Method) (Behavior, 
 	name, priority := groups[1], groups[2]
 	priorityInt, _ := strconv.Atoi(priority)
 
-	b := defaultBehavior{
-		method:     method,
-		name:       name,
-		entityType: method.Type.In(0),
-		priority:   priorityInt,
+	b := &defaultBehavior{
+		method:       method,
+		name:         name,
+		recieverType: method.Type.In(0),
+		priority:     priorityInt,
 	}
 	return b, true
 }
