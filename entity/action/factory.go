@@ -15,7 +15,11 @@ type defaultActionFactory struct {
 	singletonActionMap map[reflect.Type]any
 }
 
-func MakeDefaultActionFactory(isSingleton bool) ActionFactory {
+func MakeDefaultActionFactory() ActionFactory {
+	return MakeDefaultActionFactoryWithParams(true)
+}
+
+func MakeDefaultActionFactoryWithParams(isSingleton bool) ActionFactory {
 	af := &defaultActionFactory{}
 	af.isSingleton = isSingleton
 	if isSingleton {
