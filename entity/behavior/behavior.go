@@ -12,7 +12,7 @@ type Behavior interface {
 	ReceiverType() reflect.Type
 	Priority() int // a lower number means a higher priority
 	Call(reciever any, args ...any) []any
-	Equals(Behavior) bool
+	Equal(Behavior) bool
 }
 
 func SortBehaviorsByPriority(behaviors []Behavior) [][]Behavior {
@@ -61,6 +61,6 @@ func (b *defaultBehavior) Call(reciever any, args ...any) []any {
 	return ref.CallMethod(b.method, reciever, args...)
 }
 
-func (b *defaultBehavior) Equals(behavior Behavior) bool {
+func (b *defaultBehavior) Equal(behavior Behavior) bool {
 	return b.Name() == behavior.Name() && b.Priority() == behavior.Priority()
 }

@@ -30,14 +30,14 @@ func (ao *testActionObject) ActionStage(s string, as *testActionStage) *testActi
 }
 
 func TestAction(t *testing.T) {
-	af := MakeDefaultActionFactory(true)
+	af := MakeDefaultActionFactory()
 	nta := GetNoneTargetAction[*testActionObject](af)
 	ntsa := GetNoneTargetStagedAction[*testActionObject](af)
 	if nta != ntsa {
 		t.Fatalf("get action: expected %p == %p, got false", nta, ntsa)
 	}
 
-	af = MakeDefaultActionFactory(false)
+	af = MakeDefaultActionFactoryWithParams(false)
 	nta = GetNoneTargetAction[*testActionObject](af)
 	ntsa = GetNoneTargetStagedAction[*testActionObject](af)
 	if nta == ntsa {

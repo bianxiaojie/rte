@@ -35,7 +35,7 @@ func (br *defaultBehaviorRepository) AddBehavior(b Behavior) {
 	behaviors, ok := br.behaviorMap[rt]
 	if !ok {
 		behaviors = make([]Behavior, 0)
-	} else if slices.ContainsFunc(behaviors, b.Equals) {
+	} else if slices.ContainsFunc(behaviors, b.Equal) {
 		return
 	}
 
@@ -54,11 +54,11 @@ func (br *defaultBehaviorRepository) AddBehaviorByType(t reflect.Type) {
 func (br *defaultBehaviorRepository) RemoveBehavior(b Behavior) {
 	rt := b.ReceiverType()
 	behaviors, ok := br.behaviorMap[rt]
-	if !ok || !slices.ContainsFunc(behaviors, b.Equals) {
+	if !ok || !slices.ContainsFunc(behaviors, b.Equal) {
 		return
 	}
 
-	br.behaviorMap[rt] = slices.DeleteFunc(behaviors, b.Equals)
+	br.behaviorMap[rt] = slices.DeleteFunc(behaviors, b.Equal)
 	if len(br.behaviorMap[rt]) == 0 {
 		delete(br.behaviorMap, rt)
 	}
