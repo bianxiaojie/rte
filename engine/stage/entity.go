@@ -197,6 +197,14 @@ type StageEntity struct {
 	linkId2StageActionInfoMap map[string]*stagedActionInfo
 }
 
+func MakeStageEntity(em entity.EntityManager, t timer.Timer) *StageEntity {
+	se := &StageEntity{}
+	se.em = em
+	se.t = t
+	se.linkId2StageActionInfoMap = make(map[string]*stagedActionInfo)
+	return se
+}
+
 func (se *StageEntity) Run(sl scheduler.SchedulerLinker) {
 	se.gid = sl.GoroutineId()
 
