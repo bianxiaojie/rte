@@ -3,8 +3,13 @@ package timer
 import "time"
 
 type Timer interface {
+	// get current time
 	GetTime() time.Duration
+	// get time unit
 	GetTimeunit() time.Duration
+	// get terminal time
+	GetTerminalTime() time.Duration
+	// set terminal time
 	SetTerminalTime(time.Duration)
 }
 
@@ -31,6 +36,10 @@ func (it *defaultIncrementalTimer) GetTime() time.Duration {
 
 func (it *defaultIncrementalTimer) GetTimeunit() time.Duration {
 	return it.unit
+}
+
+func (it *defaultIncrementalTimer) GetTerminalTime() time.Duration {
+	return it.terminalTime
 }
 
 func (it *defaultIncrementalTimer) SetTerminalTime(terminalTime time.Duration) {

@@ -14,6 +14,7 @@ type EntityContainer interface {
 	RemoveEntitiesByType(reflect.Type)
 	RemoveEntities()
 	GetEntityById(string) (Entity, bool)
+	GetEntitiesByIds([]string) []Entity
 	GetEntitiesByIdPattern(string) []Entity
 	GetEntitiesByType(reflect.Type) []Entity
 	GetEntities() []Entity
@@ -92,6 +93,16 @@ func (ec *defaultEntityContainer) RemoveEntities() {
 func (ec *defaultEntityContainer) GetEntityById(id string) (Entity, bool) {
 	entity, ok := ec.id2EntityMap[id]
 	return entity, ok
+}
+
+func (ec *defaultEntityContainer) GetEntitiesByIds(ids []string) []Entity {
+	entities := make([]Entity, 0)
+	for _, id := range ids {
+		if entity, ok := ec.id2EntityMap[id]; ok {
+			entities = append(entities, entity)
+		}
+	}
+	return entities
 }
 
 func (ec *defaultEntityContainer) GetEntitiesByIdPattern(pattern string) []Entity {

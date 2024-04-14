@@ -7,7 +7,7 @@ import (
 )
 
 type ActionFactory interface {
-	getAction(t reflect.Type) any
+	GetAction(t reflect.Type) any
 }
 
 type defaultActionFactory struct {
@@ -28,7 +28,7 @@ func MakeDefaultActionFactoryWithParams(isSingleton bool) ActionFactory {
 	return af
 }
 
-func (af *defaultActionFactory) getAction(t reflect.Type) any {
+func (af *defaultActionFactory) GetAction(t reflect.Type) any {
 	if !af.isSingleton {
 		return ref.New(t)
 	}
@@ -39,25 +39,25 @@ func (af *defaultActionFactory) getAction(t reflect.Type) any {
 }
 
 func GetNoneTargetAction[Action NoneTargetAction[Source, Param, Return], Source, Param, Return any](af ActionFactory) Action {
-	return af.getAction(ref.ParseType[Action]()).(Action)
+	return af.GetAction(ref.ParseType[Action]()).(Action)
 }
 
 func GetOneTargetAction[Action OneTargetAction[Source, Param, Target, Return], Source, Param, Target, Return any](af ActionFactory) Action {
-	return af.getAction(ref.ParseType[Action]()).(Action)
+	return af.GetAction(ref.ParseType[Action]()).(Action)
 }
 
 func GetMultipleTargetsAction[Action MultipleTargetsAction[Source, Param, Target, Return], Source, Param, Target, Return any](af ActionFactory) Action {
-	return af.getAction(ref.ParseType[Action]()).(Action)
+	return af.GetAction(ref.ParseType[Action]()).(Action)
 }
 
 func GetNoneTargetStagedAction[Action NoneTargetStagedAction[Stage, Source, Param, Return], Stage ActionStage[Return], Source, Param, Return any](af ActionFactory) Action {
-	return af.getAction(ref.ParseType[Action]()).(Action)
+	return af.GetAction(ref.ParseType[Action]()).(Action)
 }
 
 func GetOneTargetStagedAction[Action OneTargetStagedAction[Stage, Source, Target, Param, Return], Stage ActionStage[Return], Source, Target, Param, Return any](af ActionFactory) Action {
-	return af.getAction(ref.ParseType[Action]()).(Action)
+	return af.GetAction(ref.ParseType[Action]()).(Action)
 }
 
 func GetMultipleTargetsStagedAction[Action MultipleTargetsStagedAction[Stage, Source, Target, Param, Return], Stage ActionStage[Return], Source, Target, Param, Return any](af ActionFactory) Action {
-	return af.getAction(ref.ParseType[Action]()).(Action)
+	return af.GetAction(ref.ParseType[Action]()).(Action)
 }

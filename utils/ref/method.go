@@ -6,7 +6,7 @@ func CallMethod(method reflect.Method, reciever any, args ...any) []any {
 	return CallFunc(method.Func, append([]any{reciever}, args...))
 }
 
-func CallFunc(f reflect.Value, args []any) []any {
+func CallFunc(f reflect.Value, args ...any) []any {
 	inputs := make([]reflect.Value, len(args))
 	for i, arg := range args {
 		inputs[i] = reflect.ValueOf(arg)
