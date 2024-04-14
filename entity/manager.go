@@ -5,22 +5,28 @@ import (
 	"github.com/bianxiaojie/rte/entity/behavior"
 )
 
-type EntityManager struct {
+type EntityManager interface {
 	EntityContainer
 	behavior.BehaviorRepository
 	action.ActionFactory
 }
 
-func MakeDefaultEntityManager() *EntityManager {
-	em := &EntityManager{}
+type defaultEntityManager struct {
+	EntityContainer
+	behavior.BehaviorRepository
+	action.ActionFactory
+}
+
+func MakeDefaultEntityManager() EntityManager {
+	em := &defaultEntityManager{}
 	em.EntityContainer = MakeDefaultEntityContainer()
 	em.BehaviorRepository = behavior.MakeDefaultBehaviorRepository()
 	em.ActionFactory = action.MakeDefaultActionFactory()
 	return em
 }
 
-func MakeEntityManager(ec EntityContainer, br behavior.BehaviorRepository, af action.ActionFactory) *EntityManager {
-	em := &EntityManager{
+func MakeDefaultEntityManagerWithParams(ec EntityContainer, br behavior.BehaviorRepository, af action.ActionFactory) EntityManager {
+	em := &defaultEntityManager{
 		EntityContainer:    ec,
 		BehaviorRepository: br,
 		ActionFactory:      af,
