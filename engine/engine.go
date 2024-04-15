@@ -16,6 +16,7 @@ type Engine interface {
 	Stop()
 	WaitStopped()
 	EntityManager() entity.EntityManager
+	Timer() timer.Timer
 }
 
 type defaultEngine struct {
@@ -56,4 +57,8 @@ func (e *defaultEngine) WaitStopped() {
 
 func (e *defaultEngine) EntityManager() entity.EntityManager {
 	return e.em
+}
+
+func (e *defaultEngine) Timer() timer.Timer {
+	return e.it
 }

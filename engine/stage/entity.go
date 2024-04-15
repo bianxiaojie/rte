@@ -231,8 +231,10 @@ func (se *StageEntity) Run(sl scheduler.SchedulerLinker) {
 			}
 			se.entities = nil
 			se.indices[1]++
+			se.indices[2] = 0
 		}
 		se.indices[0]++
+		se.indices[1] = 0
 	}
 	se.sortedBehaviors = nil
 	se.indices = [3]int{0, 0, 0}

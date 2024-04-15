@@ -196,10 +196,6 @@ func (s *defaultScheduler) start(sl SchedulerLinker) {
 func (s *defaultScheduler) schedule(sl SchedulerLinker) {
 	for {
 		s.mu.Lock()
-		if s.gid != sl.GoroutineId() {
-			s.mu.Unlock()
-			break
-		}
 		for s.state == Paused {
 			s.cond.Wait()
 		}
@@ -211,6 +207,14 @@ func (s *defaultScheduler) schedule(sl SchedulerLinker) {
 		s.mu.Unlock()
 
 		stage.Run(sl)
+
+		s.mu.Lock()
+		if s.gid != sl.GoroutineId() {
+			s.mu.Unlock()
+			break
+		}
+		s.stageIndex = (s.stageIndex + 1) % len(s.stages)
+		s.mu.Unlock()
 	}
 }
 
