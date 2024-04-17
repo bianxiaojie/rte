@@ -70,13 +70,13 @@ type heartbeatEntity interface {
 type heartbeatAction struct {
 }
 
-func (hba *heartbeatAction) MakeStage(count int) *heartbeatStage {
+func (hba *heartbeatAction) MakeStage(hbe heartbeatEntity, count int) *heartbeatStage {
 	hbs := &heartbeatStage{}
 	hbs.count = count
 	return hbs
 }
 
-func (hba *heartbeatAction) ActionStage(hbe heartbeatEntity, hbs *heartbeatStage) *heartbeatStage {
+func (hba *heartbeatAction) ActionStage(hbe heartbeatEntity, count int, hbs *heartbeatStage) *heartbeatStage {
 	hbe.AppendResult(fmt.Sprintf("%s Heartbeat", hbe.Id()))
 	hbs.value = fmt.Sprintf("%s%s", hbs.value, hbe.Id())
 	hbs.count--

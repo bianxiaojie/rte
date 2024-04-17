@@ -73,7 +73,7 @@ func (ah *defaultActionHandler) HandleAllTargetsAction(actionType reflect.Type, 
 func (ah *defaultActionHandler) HandleNoneTargetStagedAction(actionType reflect.Type, source any, param any) any {
 	action := ah.em.GetAction(actionType)
 	method := reflect.ValueOf(action).MethodByName("MakeStage")
-	actionStage := ref.CallFunc(method, param)[0]
+	actionStage := ref.CallFunc(method, source, param)[0]
 	sai := &stagedActionInfo{
 		action:      action,
 		source:      source,
@@ -89,7 +89,7 @@ func (ah *defaultActionHandler) HandleOneTargetStagedAction(actionType reflect.T
 	target, _ := ah.em.GetEntityById(id)
 	action := ah.em.GetAction(actionType)
 	method := reflect.ValueOf(action).MethodByName("MakeStage")
-	actionStage := ref.CallFunc(method, param)[0]
+	actionStage := ref.CallFunc(method, source, target, param)[0]
 	sai := &stagedActionInfo{
 		action:      action,
 		source:      source,
@@ -106,7 +106,7 @@ func (ah *defaultActionHandler) HandleMutipleTargetsStagedActionByIds(actionType
 	targets := ah.em.GetEntitiesByIds(ids)
 	action := ah.em.GetAction(actionType)
 	method := reflect.ValueOf(action).MethodByName("MakeStage")
-	actionStage := ref.CallFunc(method, param)[0]
+	actionStage := ref.CallFunc(method, source, targets, param)[0]
 	sai := &stagedActionInfo{
 		action:      action,
 		source:      source,
@@ -123,7 +123,7 @@ func (ah *defaultActionHandler) HandleMutipleTargetsStagedActionByIdPattern(acti
 	targets := ah.em.GetEntitiesByIdPattern(idPattern)
 	action := ah.em.GetAction(actionType)
 	method := reflect.ValueOf(action).MethodByName("MakeStage")
-	actionStage := ref.CallFunc(method, param)[0]
+	actionStage := ref.CallFunc(method, source, targets, param)[0]
 	sai := &stagedActionInfo{
 		action:      action,
 		source:      source,
@@ -140,7 +140,7 @@ func (ah *defaultActionHandler) HandleMutipleTargetsStagedActionByType(actionTyp
 	targets := ah.em.GetEntitiesByType(targetType)
 	action := ah.em.GetAction(actionType)
 	method := reflect.ValueOf(action).MethodByName("MakeStage")
-	actionStage := ref.CallFunc(method, param)[0]
+	actionStage := ref.CallFunc(method, source, targets, param)[0]
 	sai := &stagedActionInfo{
 		action:      action,
 		source:      source,
@@ -157,7 +157,7 @@ func (ah *defaultActionHandler) HandleAllTargetsStagedAction(actionType reflect.
 	targets := ah.em.GetEntities()
 	action := ah.em.GetAction(actionType)
 	method := reflect.ValueOf(action).MethodByName("MakeStage")
-	actionStage := ref.CallFunc(method, param)[0]
+	actionStage := ref.CallFunc(method, source, targets, param)[0]
 	sai := &stagedActionInfo{
 		action:      action,
 		source:      source,
@@ -246,11 +246,11 @@ func (se *StageEntity) processBehavior(sl scheduler.SchedulerLinker, b behavior.
 		method := reflect.ValueOf(sai.action).MethodByName("ActionStage")
 		switch sai.at {
 		case none:
-			sai.actionStage = ref.CallFunc(method, sai.source, sai.actionStage)[0]
+			sai.actionStage = ref.CallFunc(method, sai.source, sai.param, sai.actionStage)[0]
 		case one:
-			sai.actionStage = ref.CallFunc(method, sai.source, sai.targets[0], sai.actionStage)[0]
+			sai.actionStage = ref.CallFunc(method, sai.source, sai.targets[0], sai.param, sai.actionStage)[0]
 		case multiple:
-			sai.actionStage = ref.CallFunc(method, sai.source, sai.targets, sai.actionStage)[0]
+			sai.actionStage = ref.CallFunc(method, sai.source, sai.targets, sai.param, sai.actionStage)[0]
 		}
 		method = reflect.ValueOf(sai.actionStage).MethodByName("IsLastStage")
 		if ref.CallFunc(method)[0].(bool) {

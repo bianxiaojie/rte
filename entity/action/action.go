@@ -18,16 +18,16 @@ type ActionStage[Return any] interface {
 }
 
 type NoneTargetStagedAction[Stage ActionStage[Return], Source, Param, Return any] interface {
-	MakeStage(Param) Stage
-	ActionStage(Source, Stage) Stage
+	MakeStage(Source, Param) Stage
+	ActionStage(Source, Param, Stage) Stage
 }
 
 type OneTargetStagedAction[Stage ActionStage[Return], Source, Target, Param, Return any] interface {
-	MakeStage(Param) Stage
-	ActionStage(Source, Target, Stage) Stage
+	MakeStage(Source, Target, Param) Stage
+	ActionStage(Source, Target, Param, Stage) Stage
 }
 
 type MultipleTargetsStagedAction[Stage ActionStage[Return], Source, Target, Param, Return any] interface {
-	MakeStage(Param) Stage
-	ActionStage(Source, []Target, Stage) Stage
+	MakeStage(Source, []Target, Param) Stage
+	ActionStage(Source, []Target, Param, Stage) Stage
 }
