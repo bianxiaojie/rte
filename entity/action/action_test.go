@@ -21,11 +21,11 @@ func (ao *testActionObject) Action(s string, ignore any) any {
 	return nil
 }
 
-func (ao *testActionObject) MakeStage(p any) *testActionStage {
+func (ao *testActionObject) MakeStage(a string, p any) *testActionStage {
 	return &testActionStage{}
 }
 
-func (ao *testActionObject) ActionStage(s string, as *testActionStage) *testActionStage {
+func (ao *testActionObject) ActionStage(s string, p any, as *testActionStage) *testActionStage {
 	return as
 }
 
