@@ -12,3 +12,8 @@ func New(t reflect.Type) any {
 	}
 	return reflect.New(t).Elem().Interface()
 }
+
+func Cast[T any](v any) T {
+	t, _ := v.(T)
+	return t
+}

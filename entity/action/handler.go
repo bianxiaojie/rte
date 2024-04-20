@@ -25,62 +25,62 @@ type ActionHandler interface {
 
 func HandleNoneTargetAction[Action NoneTargetAction[Source, Param, Return], Source, Param, Return any](ah ActionHandler, s Source, p Param) Return {
 	at := ref.ParseType[Action]()
-	return ah.HandleNoneTargetAction(at, s, p).(Return)
+	return ref.Cast[Return](ah.HandleNoneTargetAction(at, s, p))
 }
 
 func HandleOneTargetAction[Action OneTargetAction[Source, Target, Param, Return], Source, Target, Param, Return any](ah ActionHandler, s Source, id string, p Param) Return {
 	at := ref.ParseType[Action]()
-	return ah.HandleOneTargetAction(at, s, id, p).(Return)
+	return ref.Cast[Return](ah.HandleOneTargetAction(at, s, id, p))
 }
 
 func HandleMutipleTargetsActionByIds[Action MultipleTargetsAction[Source, Target, Param, Return], Source, Target, Param, Return any](ah ActionHandler, s Source, ids []string, p Param) Return {
 	at := ref.ParseType[Action]()
-	return ah.HandleMutipleTargetsActionByIds(at, s, ids, p).(Return)
+	return ref.Cast[Return](ah.HandleMutipleTargetsActionByIds(at, s, ids, p))
 }
 
 func HandleMutipleTargetsActionByIdPattern[Action MultipleTargetsAction[Source, Target, Param, Return], Source, Target, Param, Return any](ah ActionHandler, s Source, idPattern string, p Param) Return {
 	at := ref.ParseType[Action]()
-	return ah.HandleMutipleTargetsActionByIdPattern(at, s, idPattern, p).(Return)
+	return ref.Cast[Return](ah.HandleMutipleTargetsActionByIdPattern(at, s, idPattern, p))
 }
 
 func HandleMutipleTargetsActionByType[Action MultipleTargetsAction[Source, Target, Param, Return], Source, Target, Param, Return any](ah ActionHandler, s Source, p Param) Return {
 	at := ref.ParseType[Action]()
 	tt := ref.ParseType[Target]()
-	return ah.HandleMutipleTargetsActionByType(at, s, tt, p).(Return)
+	return ref.Cast[Return](ah.HandleMutipleTargetsActionByType(at, s, tt, p))
 }
 
 func HandleAllTargetsAction[Action MultipleTargetsAction[Source, Target, Param, Return], Source, Target, Param, Return any](ah ActionHandler, s Source, p Param) Return {
 	at := ref.ParseType[Action]()
-	return ah.HandleAllTargetsAction(at, s, p).(Return)
+	return ref.Cast[Return](ah.HandleAllTargetsAction(at, s, p))
 }
 
 func HandleNoneTargetStagedAction[Action NoneTargetStagedAction[Stage, Source, Param, Return], Stage ActionStage[Return], Source, Param, Return any](ah ActionHandler, s Source, p Param) Return {
 	at := ref.ParseType[Action]()
-	return ah.HandleNoneTargetStagedAction(at, s, p).(Return)
+	return ref.Cast[Return](ah.HandleNoneTargetStagedAction(at, s, p))
 }
 
 func HandleOneTargetStagedAction[Action OneTargetStagedAction[Stage, Source, Target, Param, Return], Stage ActionStage[Return], Source, Target, Param, Return any](ah ActionHandler, s Source, id string, p Param) Return {
 	at := ref.ParseType[Action]()
-	return ah.HandleOneTargetStagedAction(at, s, id, p).(Return)
+	return ref.Cast[Return](ah.HandleOneTargetStagedAction(at, s, id, p))
 }
 
 func HandleMutipleTargetsStagedActionByIds[Action MultipleTargetsStagedAction[Stage, Source, Target, Param, Return], Stage ActionStage[Return], Source, Target, Param, Return any](ah ActionHandler, s Source, ids []string, p Param) Return {
 	at := ref.ParseType[Action]()
-	return ah.HandleMutipleTargetsStagedActionByIds(at, s, ids, p).(Return)
+	return ref.Cast[Return](ah.HandleMutipleTargetsStagedActionByIds(at, s, ids, p))
 }
 
 func HandleMutipleTargetsStagedActionByIdPattern[Action MultipleTargetsStagedAction[Stage, Source, Target, Param, Return], Stage ActionStage[Return], Source, Target, Param, Return any](ah ActionHandler, s Source, idPattern string, p Param) Return {
 	at := ref.ParseType[Action]()
-	return ah.HandleMutipleTargetsStagedActionByIdPattern(at, s, idPattern, p).(Return)
+	return ref.Cast[Return](ah.HandleMutipleTargetsStagedActionByIdPattern(at, s, idPattern, p))
 }
 
 func HandleMutipleTargetsStagedActionByType[Action MultipleTargetsStagedAction[Stage, Source, Target, Param, Return], Stage ActionStage[Return], Source, Target, Param, Return any](ah ActionHandler, s Source, p Param) Return {
 	at := ref.ParseType[Action]()
 	tt := ref.ParseType[Target]()
-	return ah.HandleMutipleTargetsStagedActionByType(at, s, tt, p).(Return)
+	return ref.Cast[Return](ah.HandleMutipleTargetsStagedActionByType(at, s, tt, p))
 }
 
 func HandleAllTargetsStagedAction[Action MultipleTargetsStagedAction[Stage, Source, Target, Param, Return], Stage ActionStage[Return], Source, Target, Param, Return any](ah ActionHandler, s Source, p Param) Return {
 	at := ref.ParseType[Action]()
-	return ah.HandleAllTargetsStagedAction(at, s, p).(Return)
+	return ref.Cast[Return](ah.HandleAllTargetsStagedAction(at, s, p))
 }
