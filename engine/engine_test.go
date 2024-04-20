@@ -99,12 +99,11 @@ func TestEngine(t *testing.T) {
 	}
 	result := make([]string, 0)
 
-	e := MakeDefaultEngine(time.Second)
+	e := MakeDefaultEngine(time.Second, 10*time.Second)
 	em := e.EntityManager()
 	em.AddBehaviorByType(ref.ParseType[*testEngineEntity]())
 	em.AddEntity(&testEngineEntity{id: "e1", result: &result})
 	em.AddEntity(&testEngineEntity{id: "e2", result: &result})
-	e.Timer().SetTerminalTime(10 * time.Second)
 	e.Start()
 	e.WaitStopped()
 	if !slices.Equal(expected, result) {

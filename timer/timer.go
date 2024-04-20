@@ -24,9 +24,10 @@ type defaultIncrementalTimer struct {
 	terminalTime time.Duration
 }
 
-func MakeDefaultIncrementalTimer(unit time.Duration) IncrementalTimer {
+func MakeDefaultIncrementalTimer(unit time.Duration, terminalTime time.Duration) IncrementalTimer {
 	it := &defaultIncrementalTimer{}
 	it.unit = unit
+	it.terminalTime = terminalTime
 	return it
 }
 

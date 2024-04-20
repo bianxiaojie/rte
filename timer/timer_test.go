@@ -6,7 +6,7 @@ import (
 )
 
 func TestTimer(t *testing.T) {
-	it := MakeDefaultIncrementalTimer(time.Second)
+	it := MakeDefaultIncrementalTimer(time.Second, time.Second)
 
 	it.Increment()
 	if time.Second != it.GetTime() {
