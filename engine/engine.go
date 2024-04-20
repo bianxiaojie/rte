@@ -25,9 +25,9 @@ type defaultEngine struct {
 	em entity.EntityManager
 }
 
-func MakeDefaultEngine(unit time.Duration) Engine {
+func MakeDefaultEngine(unit time.Duration, terminalTime time.Duration) Engine {
 	e := &defaultEngine{}
-	e.it = timer.MakeDefaultIncrementalTimer(unit)
+	e.it = timer.MakeDefaultIncrementalTimer(unit, terminalTime)
 	e.s = scheduler.MakeDefaultScheduler()
 	e.em = entity.MakeDefaultEntityManager()
 	return e
