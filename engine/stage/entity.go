@@ -39,35 +39,35 @@ func (ah *defaultActionHandler) HandleOneTargetAction(actionType reflect.Type, s
 	target, _ := ah.em.GetEntityById(id)
 	action := ah.em.GetAction(actionType)
 	method := reflect.ValueOf(action).MethodByName("Action")
-	return ref.CallFunc(method, action, source, target, param)[0]
+	return ref.CallFunc(method, source, target, param)[0]
 }
 
 func (ah *defaultActionHandler) HandleMutipleTargetsActionByIds(actionType reflect.Type, source any, ids []string, param any) any {
 	targets := ah.em.GetEntitiesByIds(ids)
 	action := ah.em.GetAction(actionType)
 	method := reflect.ValueOf(action).MethodByName("Action")
-	return ref.CallFunc(method, action, source, targets, param)[0]
+	return ref.CallFunc(method, source, targets, param)[0]
 }
 
 func (ah *defaultActionHandler) HandleMutipleTargetsActionByIdPattern(actionType reflect.Type, source any, idPattern string, param any) any {
 	targets := ah.em.GetEntitiesByIdPattern(idPattern)
 	action := ah.em.GetAction(actionType)
 	method := reflect.ValueOf(action).MethodByName("Action")
-	return ref.CallFunc(method, action, source, targets, param)[0]
+	return ref.CallFunc(method, source, targets, param)[0]
 }
 
 func (ah *defaultActionHandler) HandleMutipleTargetsActionByType(actionType reflect.Type, source any, targetType reflect.Type, param any) any {
 	targets := ah.em.GetEntitiesByType(targetType)
 	action := ah.em.GetAction(actionType)
 	method := reflect.ValueOf(action).MethodByName("Action")
-	return ref.CallFunc(method, action, source, targets, param)[0]
+	return ref.CallFunc(method, source, targets, param)[0]
 }
 
 func (ah *defaultActionHandler) HandleAllTargetsAction(actionType reflect.Type, source any, param any) any {
 	targets := ah.em.GetEntities()
 	action := ah.em.GetAction(actionType)
 	method := reflect.ValueOf(action).MethodByName("Action")
-	return ref.CallFunc(method, action, source, targets, param)[0]
+	return ref.CallFunc(method, source, targets, param)[0]
 }
 
 func (ah *defaultActionHandler) HandleNoneTargetStagedAction(actionType reflect.Type, source any, param any) any {
