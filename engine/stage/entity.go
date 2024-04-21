@@ -273,8 +273,5 @@ func (se *StageEntity) processBehavior(sl scheduler.SchedulerLinker, b behavior.
 }
 
 func (se *StageEntity) setStageActionInfo(linkId string, sai *stagedActionInfo) {
-	if _, ok := se.linkId2StageActionInfoMap[linkId]; ok {
-		panic(fmt.Sprintf("one entity cannot action in mutiple same behaviors at the same time: %s", linkId))
-	}
 	se.linkId2StageActionInfoMap[linkId] = sai
 }
