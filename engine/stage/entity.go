@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/bianxiaojie/rte/context"
+	ctx "github.com/bianxiaojie/rte/ctx"
 	"github.com/bianxiaojie/rte/entity"
 	"github.com/bianxiaojie/rte/entity/action"
 	"github.com/bianxiaojie/rte/entity/behavior"
@@ -259,8 +259,8 @@ func (se *StageEntity) processBehavior(sl scheduler.SchedulerLinker, b behavior.
 		}
 	} else {
 		ah := makeDefaultActionHandler(linkId, se.em, sl, se)
-		ctx := context.MakeDefaultContext(se.em, ah, se.t)
-		b.Call(e, ctx)
+		c := ctx.MakeDefaultContext(se.em, ah, se.t)
+		b.Call(e, c)
 		if se.gid != sl.GoroutineId() {
 			delete(se.linkId2StageActionInfoMap, linkId)
 			sl.Unlink(linkId)
