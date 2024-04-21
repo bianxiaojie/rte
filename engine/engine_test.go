@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/bianxiaojie/rte/context"
+	"github.com/bianxiaojie/rte/ctx"
 	"github.com/bianxiaojie/rte/entity"
 	"github.com/bianxiaojie/rte/entity/action"
 	"github.com/bianxiaojie/rte/utils/ref"
@@ -25,12 +25,12 @@ func (e *testEngineEntity) AppendResult(result string) {
 	*e.result = append(*e.result, result)
 }
 
-func (e *testEngineEntity) Count_1(ctx context.Context) {
-	action.HandleNoneTargetAction[*countAction, countEntity](ctx.ActionHandler(), e, nil)
+func (e *testEngineEntity) Count_1(context ctx.Context) {
+	action.HandleNoneTargetAction[*countAction, countEntity](context.ActionHandler(), e, nil)
 }
 
-func (e *testEngineEntity) Heartbeat_2(ctx context.Context) {
-	r := action.HandleNoneTargetStagedAction[*heartbeatAction, *heartbeatStage, heartbeatEntity](ctx.ActionHandler(), e, 3)
+func (e *testEngineEntity) Heartbeat_2(context ctx.Context) {
+	r := action.HandleNoneTargetStagedAction[*heartbeatAction, *heartbeatStage, heartbeatEntity](context.ActionHandler(), e, 3)
 	*e.result = append(*e.result, r)
 }
 
